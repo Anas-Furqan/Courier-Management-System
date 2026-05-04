@@ -12,6 +12,15 @@ class AgentSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $agentUser = \App\Models\User::where('email', 'agent@example.com')->first();
+
+        if ($agentUser) {
+            \App\Models\Agent::create([
+                'user_id' => $agentUser->id,
+                'branch_city' => 'Mumbai',
+                'agent_code' => 'AG-001',
+                'status' => 'active',
+            ]);
+        }
     }
 }

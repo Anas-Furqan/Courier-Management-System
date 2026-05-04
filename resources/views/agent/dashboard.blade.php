@@ -9,8 +9,8 @@
             <p class="text-lg font-bold">Manage and track all shipments for your branch with real-time updates.</p>
         </div>
         <div class="flex gap-4">
-            <a href="{{ route('couriers.create') }}" class="neo-btn bg-black text-white px-6 py-3">+ Add Shipment</a>
-            <a href="{{ route('couriers.index') }}" class="neo-btn bg-white text-black px-6 py-3">View All</a>
+            <a href="{{ route('agent.couriers.create') }}" class="neo-btn bg-black text-white px-6 py-3">+ Add Shipment</a>
+            <a href="{{ route('agent.couriers.index') }}" class="neo-btn bg-white text-black px-6 py-3">View All</a>
         </div>
     </div>
 
@@ -58,7 +58,7 @@
                                 <span class="px-3 py-1 bg-blue-400 border-2 border-black font-bold text-sm uppercase">{{ $shipment->status ?? 'pending' }}</span>
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('couriers.show', $shipment->id ?? 0) }}" class="px-3 py-1 bg-green-400 border-2 border-black font-bold text-sm">View</a>
+                                <a href="{{ route('agent.couriers.show', $shipment->id ?? 0) }}" class="px-3 py-1 bg-green-400 border-2 border-black font-bold text-sm">View</a>
                             </td>
                         </tr>
                     @empty
@@ -70,9 +70,5 @@
             </table>
         </div>
     </div>
-</div>
-@endsection
-        </div>
-    </section>
 </div>
 @endsection

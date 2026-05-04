@@ -5,7 +5,7 @@
     <!-- Hero Section -->
     <div class="border-4 border-black p-8" style="background: linear-gradient(to right, #10B981, #059669); box-shadow: 8px 8px 0 #000;">
         <h1 class="text-4xl font-black mb-2">{{ $shipment->tracking_number }}</h1>
-        <p class="text-lg font-bold mb-4">Current Status: <span style="color: {{ $shipment->status === 'delivered' ? '#4ADE80' : (#06B6D4' === 'in_transit' ? '#06B6D4' : '#FCD34D') }}; font-weight: 900;">{{ str_replace('_', ' ', $shipment->status) }}</span></p>
+        <p class="text-lg font-bold mb-4">Current Status: <span style="color: {{ $shipment->status === 'delivered' ? '#4ADE80' : ($shipment->status === 'in_transit' ? '#06B6D4' : '#FCD34D') }}; font-weight: 900;">{{ str_replace('_', ' ', $shipment->status) }}</span></p>
         <div class="flex gap-4 flex-wrap">
             <a href="{{ route('track.print', $shipment->tracking_number) }}" class="neo-btn px-4 py-2 bg-black text-white border-2 border-black" style="box-shadow: 4px 4px 0 0 #000;">🖨️ Print</a>
             <a href="{{ route('track.search') }}" class="neo-btn px-4 py-2 bg-green-400 border-2 border-black" style="box-shadow: 4px 4px 0 0 #000; color: black;">Track Another</a>
