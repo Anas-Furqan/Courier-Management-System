@@ -1,62 +1,67 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="grid w-full gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-    <section class="glass-panel p-8 shadow-2xl shadow-indigo-950/20" data-reveal>
-        <div class="mb-8">
-            <p class="text-sm uppercase tracking-[0.35em] text-indigo-300/70">Customer onboarding</p>
-            <h2 class="mt-2 text-3xl font-bold text-white">Create your account</h2>
+<div class="neo-card bg-white max-w-2xl w-full">
+    <h2 class="text-3xl font-black mb-2">Create Account</h2>
+    <p class="text-lg font-bold mb-8 border-b-4 border-black pb-4">Join the courier revolution</p>
+
+    <form method="POST" action="{{ route('register.submit') }}" class="space-y-6">
+        @csrf
+        
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-black uppercase mb-3">Full Name</label>
+                <input type="text" name="name" value="{{ old('name') }}" class="neo-input w-full" placeholder="John Doe" required>
+                @error('name')<p class="mt-2 font-bold text-red-600 text-sm">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <label class="block text-sm font-black uppercase mb-3">Email Address</label>
+                <input type="email" name="email" value="{{ old('email') }}" class="neo-input w-full" placeholder="you@example.com" required>
+                @error('email')<p class="mt-2 font-bold text-red-600 text-sm">{{ $message }}</p>@enderror
+            </div>
         </div>
 
-        <form method="POST" action="{{ route('register.submit') }}" class="grid gap-4 sm:grid-cols-2">
-            @csrf
-            <div class="sm:col-span-1">
-                <label class="input-label">Name</label>
-                <input type="text" name="name" value="{{ old('name') }}" class="input-field" required>
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-black uppercase mb-3">Phone</label>
+                <input type="text" name="phone" value="{{ old('phone') }}" class="neo-input w-full" placeholder="+91 98765 43210" required>
             </div>
-            <div class="sm:col-span-1">
-                <label class="input-label">Email</label>
-                <input type="email" name="email" value="{{ old('email') }}" class="input-field" required>
+            <div>
+                <label class="block text-sm font-black uppercase mb-3">City</label>
+                <input type="text" name="city" value="{{ old('city') }}" class="neo-input w-full" placeholder="Mumbai" required>
             </div>
-            <div class="sm:col-span-1">
-                <label class="input-label">Phone</label>
-                <input type="text" name="phone" value="{{ old('phone') }}" class="input-field" required>
-            </div>
-            <div class="sm:col-span-1">
-                <label class="input-label">City</label>
-                <input type="text" name="city" value="{{ old('city') }}" class="input-field" required>
-            </div>
-            <div class="sm:col-span-1">
-                <label class="input-label">Password</label>
-                <input type="password" name="password" class="input-field" required>
-            </div>
-            <div class="sm:col-span-1">
-                <label class="input-label">Confirm Password</label>
-                <input type="password" name="password_confirmation" class="input-field" required>
-            </div>
-            <div class="sm:col-span-2">
-                <label class="input-label">Company Name</label>
-                <input type="text" name="company_name" value="{{ old('company_name') }}" class="input-field">
-            </div>
-            <div class="sm:col-span-2">
-                <label class="input-label">Address</label>
-                <textarea name="address" rows="4" class="input-field" required>{{ old('address') }}</textarea>
-            </div>
-            <div class="sm:col-span-2">
-                <button type="submit" class="btn-primary w-full">Create Account</button>
-            </div>
-        </form>
-    </section>
-
-    <section class="flex flex-col justify-center" data-reveal>
-        <h1 class="max-w-2xl text-5xl font-black leading-tight text-white sm:text-6xl">Book, track, and manage shipments from one place.</h1>
-        <p class="mt-6 max-w-xl text-lg leading-8 text-slate-300">The customer portal is designed for a premium experience with fast registration, tracking shortcuts, and beautifully presented shipment history.</p>
-        <div class="mt-8 grid gap-4 sm:grid-cols-2">
-            <div class="feature-card">Responsive interface with Tailwind CSS.</div>
-            <div class="feature-card">Motion effects for a modern feel.</div>
-            <div class="feature-card">Tracking history in one view.</div>
-            <div class="feature-card">Fast profile management.</div>
         </div>
-    </section>
+
+        <div>
+            <label class="block text-sm font-black uppercase mb-3">Company Name (Optional)</label>
+            <input type="text" name="company_name" value="{{ old('company_name') }}" class="neo-input w-full" placeholder="Your Company">
+        </div>
+
+        <div>
+            <label class="block text-sm font-black uppercase mb-3">Address</label>
+            <textarea name="address" rows="3" class="neo-input w-full" placeholder="123 Main St..." required>{{ old('address') }}</textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-black uppercase mb-3">Password</label>
+                <input type="password" name="password" class="neo-input w-full" placeholder="Min 8 characters" required>
+                @error('password')<p class="mt-2 font-bold text-red-600 text-sm">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <label class="block text-sm font-black uppercase mb-3">Confirm Password</label>
+                <input type="password" name="password_confirmation" class="neo-input w-full" placeholder="Repeat password" required>
+            </div>
+        </div>
+
+        <button type="submit" class="neo-btn w-full bg-green-400 text-black py-4 text-lg">
+            Create Account
+        </button>
+    </form>
+
+    <div class="mt-8 border-t-4 border-black pt-6 text-center">
+        <p class="font-bold">Already have an account? <a href="{{ route('login') }}" class="underline font-black">Sign in</a></p>
+    </div>
+</div>
 </div>
 @endsection

@@ -1,41 +1,38 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="grid w-full gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-    <section class="flex flex-col justify-center" data-reveal>
-        <p class="mb-4 inline-flex w-fit rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-cyan-200">Courier Intelligence</p>
-        <h1 class="max-w-2xl text-5xl font-black leading-tight text-white sm:text-6xl">Control every shipment with a premium command center.</h1>
-        <p class="mt-6 max-w-xl text-lg leading-8 text-slate-300">Manage couriers, agents, customers, tracking and reports from a sleek Laravel dashboard built with Tailwind CSS and motion-driven interactions.</p>
-        <div class="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
-            <span class="badge">Live Tracking</span>
-            <span class="badge">Branch Control</span>
-            <span class="badge">Report Export</span>
-            <span class="badge">SMS Logs</span>
-        </div>
-    </section>
+<div class="neo-card bg-white">
+    <h2 class="text-3xl font-black mb-2">Welcome Back</h2>
+    <p class="text-lg font-bold mb-8 border-b-4 border-black pb-4">Sign in to your account</p>
 
-    <section class="glass-panel p-8 shadow-2xl shadow-cyan-950/30" data-reveal>
-        <div class="mb-8">
-            <p class="text-sm uppercase tracking-[0.35em] text-cyan-300/70">Welcome back</p>
-            <h2 class="mt-2 text-3xl font-bold text-white">Sign in to continue</h2>
+    <form method="POST" action="{{ route('login.submit') }}" class="space-y-6">
+        @csrf
+        
+        <div>
+            <label class="block text-sm font-black uppercase mb-3">Email Address</label>
+            <input type="email" name="email" value="{{ old('email') }}" class="neo-input w-full" placeholder="you@example.com" required>
+            @error('email')<p class="mt-2 font-bold text-red-600">{{ $message }}</p>@enderror
         </div>
 
-        <form method="POST" action="{{ route('login.submit') }}" class="space-y-5">
-            @csrf
-            <div>
-                <label class="input-label">Email</label>
-                <input type="email" name="email" value="{{ old('email') }}" class="input-field" placeholder="you@example.com" required>
-                @error('email')<p class="mt-2 text-sm text-rose-300">{{ $message }}</p>@enderror
-            </div>
-            <div>
-                <label class="input-label">Password</label>
-                <input type="password" name="password" class="input-field" placeholder="••••••••" required>
-                @error('password')<p class="mt-2 text-sm text-rose-300">{{ $message }}</p>@enderror
-            </div>
-            <button type="submit" class="btn-primary w-full">Login</button>
-        </form>
+        <div>
+            <label class="block text-sm font-black uppercase mb-3">Password</label>
+            <input type="password" name="password" class="neo-input w-full" placeholder="••••••••" required>
+            @error('password')<p class="mt-2 font-bold text-red-600">{{ $message }}</p>@enderror
+        </div>
 
-        <p class="mt-6 text-sm text-slate-300">New here? <a href="{{ route('register') }}" class="font-semibold text-cyan-300 hover:text-cyan-200">Create an account</a></p>
-    </section>
+        <button type="submit" class="neo-btn w-full bg-blue-500 text-white py-4 text-lg">
+            Sign In
+        </button>
+    </form>
+
+    <div class="mt-8 border-t-4 border-black pt-6 text-center">
+        <p class="font-bold">Don't have an account? <a href="{{ route('register') }}" class="underline font-black">Sign up</a></p>
+    </div>
+</div>
+
+<div class="mt-8 p-6 bg-yellow-300 border-4 border-black" style="box-shadow: 6px 6px 0 #000;">
+    <p class="font-black text-sm">DEMO ACCOUNTS</p>
+    <p class="font-bold text-sm mt-2">Admin: admin@example.com / password</p>
+    <p class="font-bold text-sm">Agent: agent@example.com / password</p>
 </div>
 @endsection

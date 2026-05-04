@@ -9,7 +9,10 @@ use App\Http\Controllers\SMSController;
 use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AuthController::class, 'showLogin'])->name('login');
+Route::get('/', function () {
+    return view('welcome');
+})->name('landing');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
