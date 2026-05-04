@@ -1,0 +1,127 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './resources/**/*.blade.php',
+    './resources/**/*.js',
+    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Instrument Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'Instrument Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+      animation: {
+        fadeInUp: 'fadeInUp 0.6s ease-out forwards',
+        slideInRight: 'slideInRight 0.6s ease-out forwards',
+        scaleIn: 'scaleIn 0.4s ease-out forwards',
+        reveal: 'reveal 0.8s ease-out forwards',
+      },
+      keyframes: {
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideInRight: {
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        reveal: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+    },
+  },
+  plugins: [
+    function ({ addComponents, theme }) {
+      addComponents({
+        '.app-shell': {
+          '@apply relative overflow-x-hidden': {},
+        },
+        '.guest-shell': {
+          '@apply relative overflow-hidden': {},
+        },
+        '.glass-panel': {
+          '@apply rounded-[28px] border border-white/10 bg-white/5 shadow-2xl shadow-slate-950/30 backdrop-blur-xl': {},
+        },
+        '.hero-panel': {
+          '@apply glass-panel flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between': {},
+        },
+        '.section-kicker': {
+          '@apply text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80': {},
+        },
+        '.btn-primary': {
+          '@apply inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-300 hover:shadow-lg hover:shadow-cyan-500/30': {},
+        },
+        '.btn-secondary': {
+          '@apply inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-white/10': {},
+        },
+        '.input-label': {
+          '@apply mb-2 block text-sm font-medium text-slate-300': {},
+        },
+        '.input-field': {
+          '@apply w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20': {},
+        },
+        '.badge': {
+          '@apply rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-200': {},
+        },
+        '.feature-card': {
+          '@apply rounded-3xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-slate-200 backdrop-blur': {},
+        },
+        '.stat-card': {
+          '@apply glass-panel p-6': {},
+        },
+        '.stat-label': {
+          '@apply text-xs uppercase tracking-[0.3em] text-slate-400': {},
+        },
+        '.stat-value': {
+          '@apply mt-3 text-3xl font-black text-white': {},
+        },
+        '.status-pill': {
+          '@apply inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em]': {},
+        },
+        '.status-pending': {
+          '@apply bg-amber-400/15 text-amber-200': {},
+        },
+        '.status-in_transit': {
+          '@apply bg-cyan-400/15 text-cyan-200': {},
+        },
+        '.status-delivered': {
+          '@apply bg-emerald-400/15 text-emerald-200': {},
+        },
+        '.status-cancelled': {
+          '@apply bg-rose-400/15 text-rose-200': {},
+        },
+        '.timeline-item': {
+          '@apply relative flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4': {},
+        },
+        '.timeline-dot': {
+          '@apply mt-1 h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_0_6px_rgba(34,211,238,0.12)]': {},
+        },
+        '.panel': {
+          '@apply glass-panel': {},
+        },
+        '.panel-soft': {
+          '@apply rounded-[28px] border border-white/10 bg-slate-950/75 shadow-2xl shadow-slate-950/30 backdrop-blur-xl': {},
+        },
+        '.button-primary': {
+          '@apply btn-primary': {},
+        },
+        '.button-secondary': {
+          '@apply btn-secondary': {},
+        },
+        '.nav-link': {
+          '@apply flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white': {},
+        },
+        '.nav-link.active': {
+          '@apply bg-cyan-400/10 text-cyan-200 ring-1 ring-cyan-300/20': {},
+        },
+      });
+    },
+  ],
+};
