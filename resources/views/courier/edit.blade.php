@@ -13,7 +13,10 @@
 
     {{-- Form --}}
     <div class="neo-card-xl p-8 bg-white">
-        <form method="POST" action="{{ route('couriers.update', $shipment->id) }}" class="grid gap-6 md:grid-cols-2">
+        @php
+            $updateRoute = auth()->user()->isAdmin() ? 'couriers.update' : 'agent.couriers.update';
+        @endphp
+        <form method="POST" action="{{ route($updateRoute, $shipment->id) }}" class="grid gap-6 md:grid-cols-2">
             @csrf
             @method('PUT')
 

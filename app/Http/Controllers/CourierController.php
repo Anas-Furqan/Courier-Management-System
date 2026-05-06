@@ -39,7 +39,8 @@ class CourierController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        return view('courier.create', compact('customers'));
+        $agent = auth()->user()->agent;
+        return view('courier.create', compact('customers', 'agent'));
     }
 
     /**
@@ -53,7 +54,7 @@ class CourierController extends Controller
         $shipment = Shipment::create([
             ...$request->validated(),
             'tracking_number' => $trackingNumber,
-            'booking_date' => now()->date(),
+            'booking_date' => now()->toDateString(),
             'created_by' => auth()->id(),
             'status' => 'pending',
         ]);
@@ -67,7 +68,8 @@ class CourierController extends Controller
             'updated_by' => auth()->id(),
         ]);
 
-        return redirect()->route('couriers.show', $shipment->id)->with('success', "Shipment created! Tracking #: {$trackingNumber}");
+        $route = auth()->user()->isAdmin() ? 'couriers.show' : 'agent.couriers.show';
+        return redirect()->route($route, $shipment->id)->with('success', "Shipment created! Tracking #: {$trackingNumber}");
     }
 
     /**
@@ -144,7 +146,7 @@ class CourierController extends Controller
         $shipment->status = $validated['status'];
         
         if ($validated['status'] === 'delivered') {
-            $shipment->actual_delivery_date = now()->date();
+            $shipment->actual_delivery_date = now()->toDateString();
         }
         
         $shipment->save();

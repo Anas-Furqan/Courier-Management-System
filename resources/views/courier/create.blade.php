@@ -13,7 +13,10 @@
 
     {{-- Form --}}
     <div class="neo-card-xl p-8 bg-white">
-        <form method="POST" action="{{ route('couriers.store') }}" class="space-y-8">
+        @php
+            $storeRoute = auth()->user()->isAdmin() ? 'couriers.store' : 'agent.couriers.store';
+        @endphp
+        <form method="POST" action="{{ route($storeRoute) }}" class="space-y-8">
             @csrf
 
             {{-- Parties --}}
@@ -119,7 +122,10 @@
             {{-- Actions --}}
             <div class="flex gap-4 pt-4 border-t-4 border-black">
                 <button type="submit" class="neo-btn flex-1 bg-blue-500 text-white py-4">Create Shipment</button>
-                <a href="{{ route('couriers.index') }}" class="neo-btn flex-1 bg-gray-200 text-black py-4 text-center">Cancel</a>
+                @php
+                    $indexRoute = auth()->user()->isAdmin() ? 'couriers.index' : 'agent.couriers.index';
+                @endphp
+                <a href="{{ route($indexRoute) }}" class="neo-btn flex-1 bg-gray-200 text-black py-4 text-center">Cancel</a>
             </div>
         </form>
     </div>
