@@ -4,58 +4,60 @@
 
 @section('content')
 <div class="space-y-8">
-    <!-- Hero Section -->
-    <div class="border-4 border-black p-8" style="background: linear-gradient(to right, #06B6D4, #0EA5E9); box-shadow: 8px 8px 0 #000;">
-        <h1 class="text-4xl font-black mb-2">Track Your Shipments</h1>
-        <p class="text-lg font-bold">Monitor all your deliveries in real-time with detailed tracking and updates.</p>
+
+    {{-- Hero --}}
+    <div class="page-hero bg-cyan-400">
+        <h1 class="text-4xl font-black mb-1">Track Your Shipments</h1>
+        <p class="font-bold text-black/70">Monitor all your deliveries in real-time.</p>
     </div>
 
-    <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-yellow-300 border-4 border-black p-6" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-black uppercase mb-2">Total Shipments</p>
-            <p class="text-5xl font-black">{{ $totalShipments }}</p>
+    {{-- Stats --}}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="stat-neo bg-yellow-300 text-center">
+            <p class="stat-neo-label">Total Shipments</p>
+            <p class="stat-neo-value">{{ $totalShipments }}</p>
         </div>
-        <div class="bg-cyan-400 border-4 border-black p-6" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-black uppercase mb-2">In Transit</p>
-            <p class="text-5xl font-black">{{ $inTransitCount }}</p>
+        <div class="stat-neo bg-cyan-400 text-center">
+            <p class="stat-neo-label">In Transit</p>
+            <p class="stat-neo-value">{{ $inTransitCount }}</p>
         </div>
-        <div class="bg-green-400 border-4 border-black p-6" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-black uppercase mb-2">Delivered</p>
-            <p class="text-5xl font-black">{{ $deliveredCount }}</p>
+        <div class="stat-neo bg-green-400 text-center">
+            <p class="stat-neo-label">Delivered</p>
+            <p class="stat-neo-value">{{ $deliveredCount }}</p>
         </div>
-        <div class="bg-orange-300 border-4 border-black p-6" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-black uppercase mb-2">Pending</p>
-            <p class="text-5xl font-black">{{ $pendingCount ?? 0 }}</p>
+        <div class="stat-neo bg-orange-300 text-center">
+            <p class="stat-neo-label">Pending</p>
+            <p class="stat-neo-value">{{ $pendingCount ?? 0 }}</p>
         </div>
     </div>
 
-    <!-- Quick Tracking -->
-    <div class="border-4 border-black bg-white p-8" style="box-shadow: 8px 8px 0 #000;">
-        <h2 class="text-3xl font-black mb-6">Quick Tracking</h2>
-        <form class="flex flex-col md:flex-row gap-4" action="{{ route('track.search') }}" method="GET">
+    {{-- Quick Tracking --}}
+    <div class="neo-card-xl p-8 bg-white">
+        <h2 class="section-title">Quick Track</h2>
+        <form class="flex flex-col sm:flex-row gap-4" action="{{ route('track.search') }}" method="GET">
             <input type="text" name="tracking_number" placeholder="Enter tracking number..." class="neo-input flex-1" required>
-            <button type="submit" class="neo-btn bg-black text-white px-8 py-3">Search</button>
+            <button type="submit" class="neo-btn bg-black text-white flex-shrink-0">Search</button>
         </form>
     </div>
 
-    <!-- Recent Shipments -->
-    <div class="border-4 border-black bg-white" style="box-shadow: 8px 8px 0 #000;">
-        <div class="bg-pink-400 border-b-4 border-black p-6">
+    {{-- Recent Shipments --}}
+    <div class="neo-table-wrap">
+        <div class="neo-table-head bg-pink-400 text-black border-b-4 border-black">
             <h2 class="text-2xl font-black">Recent Shipments</h2>
+            <a href="{{ route('customer.shipments') }}" class="neo-btn-sm bg-black text-white flex-shrink-0">View All</a>
         </div>
         <div class="p-6">
             @if($shipments->count() > 0)
-                <div class="space-y-4">
+                <div class="space-y-3">
                     @foreach($shipments as $shipment)
-                        <div class="border-2 border-black p-4 flex justify-between items-center">
+                        <div class="border-4 border-black p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:bg-yellow-50 transition-colors" style="box-shadow:3px 3px 0 #000;">
                             <div>
-                                <p class="text-lg font-black">{{ $shipment->tracking_number }}</p>
-                                <p class="font-bold">{{ $shipment->from_city }} → {{ $shipment->to_city }}</p>
+                                <p class="font-black font-mono">{{ $shipment->tracking_number }}</p>
+                                <p class="font-bold text-sm text-gray-600">{{ $shipment->from_city }} → {{ $shipment->to_city }}</p>
                             </div>
-                            <div class="flex items-center gap-4">
-                                <span class="px-4 py-2 bg-blue-300 border-2 border-black font-bold uppercase text-sm">{{ $shipment->status }}</span>
-                                <a href="{{ route('track.view', $shipment->tracking_number) }}" class="px-4 py-2 bg-green-400 border-2 border-black font-bold">View</a>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <span class="s-{{ $shipment->status }}">{{ str_replace('_',' ',$shipment->status) }}</span>
+                                <a href="{{ route('track.view', $shipment->tracking_number) }}" class="neo-btn-sm bg-green-400 text-black">View</a>
                             </div>
                         </div>
                     @endforeach
@@ -63,17 +65,11 @@
             @else
                 <div class="border-4 border-dashed border-black p-12 text-center">
                     <p class="text-xl font-black mb-4">No shipments yet</p>
-                    <a href="{{ route('track.search') }}" class="inline-block px-6 py-3 bg-blue-500 text-white border-4 border-black font-black" style="box-shadow: 4px 4px 0 #000;">Start Tracking</a>
+                    <a href="{{ route('track.search') }}" class="neo-btn bg-blue-500 text-white inline-block">Start Tracking</a>
                 </div>
             @endif
         </div>
     </div>
-</div>
-@endsection
-                <p class="text-slate-400">No shipments yet. Create your first shipment to see it here.</p>
-                <a href="{{ route('track.search') }}" class="btn-primary mt-4 inline-block">Start Tracking</a>
-            </div>
-        @endif
-    </section>
+
 </div>
 @endsection

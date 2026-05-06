@@ -9,50 +9,46 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
-            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 50%, #fef08a 100%);
-        }
-        .neo-btn {
-            @apply border-4 border-black font-black uppercase tracking-wider transition-all;
-            box-shadow: 6px 6px 0 0 #000;
-        }
-        .neo-btn:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 8px 8px 0 0 #000;
-        }
-        .neo-btn:active {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0 0 #000;
-        }
-        .neo-card {
-            @apply border-4 border-black p-8;
-            box-shadow: 8px 8px 0 0 #000;
-        }
-        .neo-input {
-            @apply border-4 border-black px-4 py-3 font-bold text-lg;
-            box-shadow: 4px 4px 0 0 #000;
-        }
-        .neo-input:focus {
-            outline: none !important;
-            box-shadow: inset 2px 2px 0 0 rgba(0,0,0,0.1), 6px 6px 0 0 #000 !important;
+            background-color: #FEF3C7;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
         }
     </style>
 </head>
-<body class="text-black font-sans">
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="w-full max-w-md">
-            <!-- Logo -->
-            <div class="text-center mb-12">
-                <div class="inline-block">
-                    <div class="w-16 h-16 bg-red-500 border-4 border-black flex items-center justify-center font-black text-3xl mb-4" style="box-shadow: 6px 6px 0 #000;">
-                        DI
-                    </div>
+<body class="text-black font-sans min-h-screen">
+
+    {{-- Nav Strip --}}
+    <nav class="border-b-4 border-black bg-white/80 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-yellow-300 border-4 border-black flex items-center justify-center font-black text-sm" style="box-shadow:3px 3px 0 #000;">DI</div>
+                <span class="font-black text-lg">DeliverIt</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="{{ route('login') }}" class="neo-btn-sm bg-white text-black">Login</a>
+                <a href="{{ route('register') }}" class="neo-btn-sm bg-black text-white">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    {{-- Content --}}
+    <div class="flex items-start justify-center px-4 py-12 min-h-[calc(100vh-68px)]">
+        <div class="w-full max-w-2xl">
+
+            {{-- Logo Header --}}
+            <div class="text-center mb-8">
+                <div class="inline-block mb-4">
+                    <div class="w-16 h-16 bg-yellow-300 border-4 border-black flex items-center justify-center font-black text-2xl mx-auto" style="box-shadow:5px 5px 0 #000;">DI</div>
                 </div>
-                <h1 class="text-4xl font-black mt-4">DeliverIt</h1>
-                <p class="text-lg font-bold mt-2">Courier Management System</p>
+                <h1 class="text-3xl font-black">DeliverIt</h1>
+                <p class="font-bold text-gray-700 mt-1">Courier Management System</p>
             </div>
 
             @yield('content')
         </div>
     </div>
+
 </body>
 </html>

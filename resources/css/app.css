@@ -1,162 +1,175 @@
-@import url('https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700|space-grotesk:400,500,700&display=swap');
+@import url('https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700,900|space-grotesk:400,500,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
-
-    * {
-        font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
         @apply bg-white text-black;
+        font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
     }
-
-    body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        background-size: 32px 32px;
-        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 92%);
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
     }
 }
 
 @layer components {
-    .app-shell {
-        @apply relative overflow-x-hidden;
+
+    /* ─── BUTTONS ─────────────────────────────── */
+    .neo-btn {
+        @apply inline-flex items-center justify-center gap-2 border-4 border-black px-5 py-3 font-black uppercase tracking-wide transition-all duration-100 cursor-pointer select-none;
+        box-shadow: 4px 4px 0 0 #000;
+    }
+    .neo-btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 0 #000;
+    }
+    .neo-btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 0 #000;
+    }
+    .neo-btn-sm {
+        @apply inline-flex items-center justify-center gap-1 border-2 border-black px-3 py-1.5 text-xs font-black uppercase tracking-wide transition-all duration-100 cursor-pointer;
+        box-shadow: 3px 3px 0 0 #000;
+    }
+    .neo-btn-sm:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 4px 4px 0 0 #000;
+    }
+    .neo-btn-sm:active {
+        transform: translate(1px, 1px);
+        box-shadow: 1px 1px 0 0 #000;
     }
 
-    .guest-shell {
-        @apply relative overflow-hidden;
+    /* ─── CARDS ───────────────────────────────── */
+    .neo-card {
+        @apply border-4 border-black bg-white;
+        box-shadow: 6px 6px 0 0 #000;
+    }
+    .neo-card-xl {
+        @apply border-4 border-black bg-white;
+        box-shadow: 8px 8px 0 0 #000;
     }
 
-    .glass-panel {
-        @apply rounded-[28px] border border-white/10 bg-white/5 shadow-2xl shadow-slate-950/30 backdrop-blur-xl;
+    /* ─── INPUTS ──────────────────────────────── */
+    .neo-input {
+        @apply w-full border-4 border-black bg-white px-4 py-3 font-bold text-black placeholder-gray-400;
+        box-shadow: 3px 3px 0 0 #000;
+        outline: none;
+        transition: box-shadow 0.1s;
+    }
+    .neo-input:focus {
+        box-shadow: inset 2px 2px 0 0 rgba(0,0,0,0.07), 5px 5px 0 0 #000;
     }
 
-    .hero-panel {
-        @apply glass-panel flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between;
+    /* ─── PAGE HERO BANNERS ───────────────────── */
+    .page-hero {
+        @apply border-4 border-black p-8;
+        box-shadow: 8px 8px 0 0 #000;
     }
 
-    .section-kicker {
-        @apply text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80;
+    /* ─── TABLES ──────────────────────────────── */
+    .neo-table-wrap {
+        @apply border-4 border-black bg-white overflow-hidden;
+        box-shadow: 8px 8px 0 0 #000;
+    }
+    .neo-table-head {
+        @apply border-b-4 border-black p-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+    }
+    .neo-table { @apply w-full; }
+    .neo-table thead tr { @apply border-b-4 border-black bg-gray-100; }
+    .neo-table thead th { @apply px-6 py-4 text-left font-black text-xs uppercase tracking-widest; }
+    .neo-table tbody tr { @apply border-b-2 border-gray-100 hover:bg-yellow-50 transition-colors; }
+    .neo-table tbody td { @apply px-6 py-4 font-bold text-sm; }
+    .neo-table tbody tr:last-child { @apply border-b-0; }
+
+    /* ─── STATUS BADGES ───────────────────────── */
+    .s-badge { @apply inline-block border-2 border-black px-3 py-1 text-xs font-black uppercase tracking-wide; }
+    .s-pending   { @apply s-badge bg-yellow-300; }
+    .s-in_transit { @apply s-badge bg-cyan-400; }
+    .s-delivered { @apply s-badge bg-green-400; }
+    .s-cancelled { @apply s-badge bg-red-500 text-white; }
+    .s-active    { @apply s-badge bg-green-400; }
+    .s-inactive  { @apply s-badge bg-gray-300; }
+
+    /* ─── ALERTS ──────────────────────────────── */
+    .alert-success {
+        @apply border-4 border-black p-4 bg-green-300 font-bold flex items-start gap-3;
+        box-shadow: 4px 4px 0 0 #000;
+    }
+    .alert-error {
+        @apply border-4 border-black p-4 bg-red-300 font-bold flex items-start gap-3;
+        box-shadow: 4px 4px 0 0 #000;
     }
 
-    .btn-primary {
-        @apply inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition duration-300 hover:-translate-y-0.5 hover:bg-cyan-300 hover:shadow-lg hover:shadow-cyan-500/30;
+    /* ─── SIDEBAR NAVIGATION ──────────────────── */
+    .sidebar-link {
+        @apply flex items-center gap-3 px-4 py-3 font-bold text-black border-b border-gray-100 hover:bg-yellow-50 transition-colors text-sm;
+    }
+    .sidebar-link.active {
+        @apply bg-yellow-300 font-black border-l-4 border-l-black;
+    }
+    .sidebar-section {
+        @apply px-4 py-2 text-xs font-black uppercase tracking-widest text-gray-500 bg-gray-50 border-y border-gray-100;
     }
 
-    .btn-secondary {
-        @apply inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-white/10;
+    /* ─── FORM LABELS ─────────────────────────── */
+    .form-label { @apply block text-sm font-black uppercase tracking-wide mb-2; }
+    .form-error { @apply mt-1 text-sm font-bold text-red-600; }
+
+    /* ─── DETAIL INFO CARDS ───────────────────── */
+    .info-card {
+        @apply border-4 border-black bg-white p-6;
+        box-shadow: 4px 4px 0 0 #000;
+    }
+    .info-label { @apply text-xs font-black uppercase tracking-widest text-gray-500 mb-2; }
+    .info-value { @apply text-xl font-black; }
+
+    /* ─── STAT CARDS ──────────────────────────── */
+    .stat-neo {
+        @apply border-4 border-black p-6;
+        box-shadow: 6px 6px 0 0 #000;
+    }
+    .stat-neo-label { @apply text-xs font-black uppercase tracking-widest mb-3; }
+    .stat-neo-value { @apply text-5xl font-black leading-none; }
+
+    /* ─── TRACKING TIMELINE ───────────────────── */
+    .track-event {
+        @apply relative pl-8 pb-6;
+    }
+    .track-event::before {
+        content: '';
+        @apply absolute left-0 top-1.5 w-4 h-4 border-4 border-black bg-yellow-300;
+    }
+    .track-event::after {
+        content: '';
+        @apply absolute bg-black;
+        left: 6px;
+        top: 22px;
+        width: 4px;
+        bottom: 0;
+    }
+    .track-event:last-child::after { display: none; }
+
+    /* ─── SECTION DIVIDERS ────────────────────── */
+    .section-title {
+        @apply text-2xl font-black pb-3 mb-6 border-b-4 border-black;
     }
 
-    .input-label {
-        @apply mb-2 block text-sm font-medium text-slate-300;
-    }
-
-    .input-field {
-        @apply w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20;
-    }
-
-    .badge {
-        @apply rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-200;
-    }
-
+    /* ─── LANDING PAGE ────────────────────────── */
     .feature-card {
-        @apply rounded-3xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-slate-200 backdrop-blur;
+        @apply border-4 border-black bg-white p-6;
+        box-shadow: 6px 6px 0 0 #000;
+        transition: transform 0.15s, box-shadow 0.15s;
     }
-
-    .stat-card {
-        @apply glass-panel p-6;
+    .feature-card:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 9px 9px 0 0 #000;
     }
-
-    .stat-label {
-        @apply text-xs uppercase tracking-[0.3em] text-slate-400;
-    }
-
-    .stat-value {
-        @apply mt-3 text-3xl font-black text-white;
-    }
-
-    .status-pill {
-        @apply inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em];
-    }
-
-    .status-pending {
-        @apply bg-amber-400/15 text-amber-200;
-    }
-
-    .status-in_transit {
-        @apply bg-cyan-400/15 text-cyan-200;
-    }
-
-    .status-delivered {
-        @apply bg-emerald-400/15 text-emerald-200;
-    }
-
-    .status-cancelled {
-        @apply bg-rose-400/15 text-rose-200;
-    }
-
-    .timeline-item {
-        @apply relative flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4;
-    }
-
-    .timeline-dot {
-        @apply mt-1 h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_0_6px_rgba(34,211,238,0.12)];
-    }
-    .panel {
-        @apply glass-panel;
-    }
-
-    .panel-soft {
-        @apply rounded-[28px] border border-white/10 bg-slate-950/75 shadow-2xl shadow-slate-950/30 backdrop-blur-xl;
-    }
-
-    .button-primary {
-        @apply btn-primary;
-    }
-
-    .button-secondary {
-        @apply btn-secondary;
-    }
-
-    .nav-link {
-        @apply flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white;
-    }
-
-    .nav-link.active {
-        @apply bg-cyan-400/10 text-cyan-200 ring-1 ring-cyan-300/20;
-    }
-
-    .reveal {
-        opacity: 0;
-        transform: translateY(18px);
-        transition: opacity 500ms ease, transform 500ms ease;
-    }
-
-    .reveal.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@layer utilities {
-    [data-reveal] {
-        opacity: 0;
-        transform: translateY(20px) scale(0.99);
-        transition: opacity 700ms ease, transform 700ms ease;
-    }
-
-    [data-reveal].is-visible {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+    .step-number {
+        @apply w-14 h-14 border-4 border-black bg-yellow-300 flex items-center justify-center font-black text-2xl;
+        box-shadow: 4px 4px 0 0 #000;
     }
 }

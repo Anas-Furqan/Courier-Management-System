@@ -3,55 +3,63 @@
 @section('page-title', 'Create Agent')
 
 @section('content')
-<div class="space-y-8">
-    <!-- Hero Section -->
-    <div class="border-4 border-black p-8 flex justify-between items-center" style="background: linear-gradient(to right, #06B6D4, #0EA5E9); box-shadow: 8px 8px 0 #000;">
-        <div>
-            <h1 class="text-4xl font-black mb-2">Add New Agent</h1>
-            <p class="text-lg font-bold">Register a new delivery agent for your branch.</p>
-        </div>
+<div class="space-y-8 max-w-3xl">
+
+    {{-- Hero --}}
+    <div class="page-hero bg-cyan-400">
+        <h1 class="text-4xl font-black mb-1">Add New Agent</h1>
+        <p class="font-bold text-black/70">Register a new delivery agent for your branch.</p>
     </div>
 
-    <!-- Form Card -->
-    <div class="border-4 border-black bg-white p-8" style="box-shadow: 8px 8px 0 #000;">
+    {{-- Form --}}
+    <div class="neo-card-xl p-8 bg-white">
         <form class="grid gap-6 sm:grid-cols-2" action="{{ route('admin.agents.store') }}" method="POST">
             @csrf
-            
+
             <div>
-                <label class="block font-bold mb-3">Full Name *</label>
-                <input class="neo-input w-full" name="name" required>
+                <label class="form-label">Full Name *</label>
+                <input class="neo-input" name="name" value="{{ old('name') }}" placeholder="Jane Doe" required>
+                @error('name')<p class="form-error">{{ $message }}</p>@enderror
             </div>
-            
+
             <div>
-                <label class="block font-bold mb-3">Email Address *</label>
-                <input class="neo-input w-full" name="email" type="email" required>
+                <label class="form-label">Email Address *</label>
+                <input class="neo-input" name="email" type="email" value="{{ old('email') }}" placeholder="agent@example.com" required>
+                @error('email')<p class="form-error">{{ $message }}</p>@enderror
             </div>
-            
+
             <div>
-                <label class="block font-bold mb-3">Phone Number *</label>
-                <input class="neo-input w-full" name="phone" required>
+                <label class="form-label">Phone Number *</label>
+                <input class="neo-input" name="phone" value="{{ old('phone') }}" placeholder="+92 300 0000000" required>
             </div>
-            
+
             <div>
-                <label class="block font-bold mb-3">Password *</label>
-                <input class="neo-input w-full" name="password" type="password" required>
+                <label class="form-label">Password *</label>
+                <input class="neo-input" name="password" type="password" placeholder="Min 8 characters" required>
+                @error('password')<p class="form-error">{{ $message }}</p>@enderror
             </div>
-            
+
             <div>
-                <label class="block font-bold mb-3">Branch City *</label>
-                <input class="neo-input w-full" name="branch_city" required>
+                <label class="form-label">Branch City *</label>
+                <select class="neo-input" name="branch_city" required>
+                    <option value="">Select a city...</option>
+                    @foreach(['Karachi','Lahore','Islamabad','Rawalpindi','Faisalabad','Multan','Peshawar','Quetta'] as $city)
+                        <option value="{{ $city }}" {{ old('branch_city') === $city ? 'selected' : '' }}>{{ $city }}</option>
+                    @endforeach
+                </select>
             </div>
-            
+
             <div>
-                <label class="block font-bold mb-3">Agent Code *</label>
-                <input class="neo-input w-full" name="agent_code" placeholder="e.g., AG-001" required>
+                <label class="form-label">Agent Code *</label>
+                <input class="neo-input" name="agent_code" value="{{ old('agent_code') }}" placeholder="e.g., AG-001" required>
             </div>
-            
-            <div class="sm:col-span-2 flex gap-4">
-                <button class="neo-btn px-6 py-3 flex-1" type="submit" style="background-color: #4ADE80; border-width: 4px; border-color: black; box-shadow: 6px 6px 0 0 #000;">Create Agent</button>
-                <a href="{{ route('admin.agents.index') }}" class="neo-btn px-6 py-3 text-center" style="background-color: #E5E7EB; border-width: 4px; border-color: black; box-shadow: 6px 6px 0 0 #000; color: black;">Cancel</a>
+
+            <div class="sm:col-span-2 flex gap-4 pt-2 border-t-4 border-black mt-2">
+                <button class="neo-btn flex-1 bg-green-400 text-black py-4" type="submit">Create Agent</button>
+                <a href="{{ route('admin.agents.index') }}" class="neo-btn flex-1 bg-gray-200 text-black py-4 text-center">Cancel</a>
             </div>
         </form>
     </div>
+
 </div>
 @endsection

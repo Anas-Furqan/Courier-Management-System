@@ -3,40 +3,46 @@
 @section('page-title', 'Agent Details')
 
 @section('content')
-<div class="space-y-8">
-    <!-- Hero Section -->
-    <div class="border-4 border-black p-8" style="background: linear-gradient(to right, #A78BFA, #C084FC); box-shadow: 8px 8px 0 #000;">
-        <h1 class="text-4xl font-black mb-2">{{ $agent->user->name }}</h1>
-        <p class="text-lg font-bold">{{ $agent->agent_code }}</p>
+<div class="space-y-8 max-w-4xl">
+
+    {{-- Hero --}}
+    <div class="page-hero bg-purple-300 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div>
+            <p class="text-xs font-black uppercase tracking-widest mb-2 text-black/60">Agent Profile</p>
+            <h1 class="text-4xl font-black mb-1">{{ $agent->user->name }}</h1>
+            <p class="font-bold font-mono">{{ $agent->agent_code }}</p>
+        </div>
+        <span class="s-{{ $agent->status }} flex-shrink-0 self-start">{{ ucfirst($agent->status) }}</span>
     </div>
 
-    <!-- Details Grid -->
+    {{-- Details Grid --}}
     <div class="grid gap-6 sm:grid-cols-2">
-        <div class="border-4 border-black bg-white p-8" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-bold text-gray-600 mb-2">EMAIL ADDRESS</p>
-            <p class="text-2xl font-black">{{ $agent->user->email }}</p>
+        <div class="info-card">
+            <p class="info-label">Email Address</p>
+            <p class="info-value break-words">{{ $agent->user->email }}</p>
         </div>
-        
-        <div class="border-4 border-black bg-white p-8" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-bold text-gray-600 mb-2">PHONE NUMBER</p>
-            <p class="text-2xl font-black">{{ $agent->user->phone }}</p>
+
+        <div class="info-card">
+            <p class="info-label">Phone Number</p>
+            <p class="info-value">{{ $agent->user->phone }}</p>
         </div>
-        
-        <div class="border-4 border-black bg-white p-8" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-bold text-gray-600 mb-2">BRANCH CITY</p>
-            <p class="text-2xl font-black">{{ $agent->branch_city }}</p>
+
+        <div class="info-card">
+            <p class="info-label">Branch City</p>
+            <p class="info-value">{{ $agent->branch_city }}</p>
         </div>
-        
-        <div class="border-4 border-black bg-white p-8" style="box-shadow: 6px 6px 0 #000;">
-            <p class="text-sm font-bold text-gray-600 mb-2">STATUS</p>
-            <p class="text-2xl font-black" style="color: {{ $agent->status === 'active' ? '#4ADE80' : '#EF4444' }}">{{ ucfirst($agent->status) }}</p>
+
+        <div class="info-card">
+            <p class="info-label">Status</p>
+            <span class="s-{{ $agent->status }} mt-1 inline-block">{{ ucfirst($agent->status) }}</span>
         </div>
     </div>
 
-    <!-- Action Buttons -->
+    {{-- Actions --}}
     <div class="flex gap-4">
-        <a href="{{ route('admin.agents.edit', $agent->id) }}" class="neo-btn px-6 py-3 flex-1 text-center" style="background-color: #FCD34D; border-width: 4px; border-color: black; box-shadow: 6px 6px 0 0 #000; color: black;">Edit Agent</a>
-        <a href="{{ route('admin.agents.index') }}" class="neo-btn px-6 py-3 flex-1 text-center" style="background-color: #E5E7EB; border-width: 4px; border-color: black; box-shadow: 6px 6px 0 0 #000; color: black;">Back to Agents</a>
+        <a href="{{ route('admin.agents.edit', $agent->id) }}" class="neo-btn flex-1 bg-yellow-300 text-black text-center py-3">Edit Agent</a>
+        <a href="{{ route('admin.agents.index') }}" class="neo-btn flex-1 bg-gray-200 text-black text-center py-3">← Back to Agents</a>
     </div>
+
 </div>
 @endsection
